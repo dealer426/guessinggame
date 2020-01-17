@@ -7,15 +7,30 @@ namespace guessinggame
         static void Main(string[] args)
         {
             // When the user guesses 7, the game announces they have won. All other numbers lose.
+            // When the user guesses 0, the game provides instructions for the user.
 
             string userGuess = " ";
 
             AskPlayerForANumber(ref userGuess);
-            RepsondToPlayer(ref userGuess);
+
             
+            
+            switch (userGuess)
+            {
+                case "7":
+                Console.WriteLine("You are a winner!");
+                break;
 
+                case "0":
+                Console.WriteLine("Here are some user instructions");
+                break;
 
-            // When the user guesses 0, the game provides instructions for the user.
+                default:
+                Console.WriteLine("You guess the wrong number");
+                break;
+            }
+
+            
             // After guessing, the user can take one more guess (unless they won!)
             // When the user guesses -1, the application should exit.
             // The game should provide feedback that the secret number is > or < any incorrect guesses.
@@ -33,10 +48,6 @@ namespace guessinggame
             userInput = Console.ReadLine();
         }
 
-        static void RepsondToPlayer(ref string userInput)
-        {
-            int userGuessNumber = Convert.ToInt32(userInput);
-            Console.WriteLine((userGuessNumber == 7) ? "You Guessed Correctly" : "You guessed Incorrectly");
-        }
+        
     }
 }
