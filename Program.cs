@@ -9,21 +9,37 @@ namespace guessinggame
             // When the user guesses 7, the game announces they have won. All other numbers lose.
             // When the user guesses 0, the game provides instructions for the user.
             // After guessing, the user can take one more guess (unless they won!)
-             // When the user guesses -1, the application should exit.
+            // When the user guesses -1, the application should exit.
+            // The game should provide feedback that the secret number is > or < any incorrect guesses.
 
             string userGuess = " ";
             int gameCounter = 0;
+            bool isWinner = false;
 
             AskPlayerForANumber(ref userGuess, ref gameCounter);
 
-            DetermineGameMessgae(ref userGuess, ref gameCounter);
+            DetermineGameMessgae(ref userGuess, ref gameCounter, ref isWinner);
             
-    
+            if(isWinner)
+            Console.WriteLine( "You are a Winner!");
+            else if (!isWinner && gameCounter <2)
+                   {
+                        AskPlayerForANumber(ref userGuess, ref gameCounter);
+                        DetermineGameMessgae(ref userGuess, ref gameCounter, ref isWinner);
+                        if(isWinner)
+                                Console.WriteLine( "You are a Winner!");
+                        else
+                                Console.WriteLine("You Lost!");
+                    }
+            else
+                Console.WriteLine("You Lost!");
+            
 
-            
+
+             
             
            
-            // The game should provide feedback that the secret number is > or < any incorrect guesses.
+            
             // The number should be random, instead of always 7.
 
             // Stretch task: Give the user 3 tries before announcing they have lost.
@@ -39,41 +55,31 @@ namespace guessinggame
             ++gameCounter;
         }
 
-        static void DetermineGameMessgae(ref string userInput, ref int gameCounter)
+        static void DetermineGameMessgae(ref string userInput, ref int gameCounter, ref bool checkWinner)
         {
 
-              switch (userInput)
-            {
-                case "7":
-                Console.WriteLine("You are a winner!");
-                break;
-
-                case "0":
-                if(gameCounter < 2)
+            if (Convert.ToInt32(userInput) == 7)
                 {
-                    Console.WriteLine("Here are some user instructions, Try Again");
-                    AskPlayerForANumber(ref userInput, ref gameCounter);
-                    DetermineGameMessgae(ref userInput, ref gameCounter);
+                    checkWinner = true;
                 }
-                break;
 
-                case "-1":
-                Console.WriteLine("Game Over!");
-                break;
-
-                default:
-                if(gameCounter < 2)
+            else if (Convert.ToInt32(userInput) == -1)
                 {
-                    Console.WriteLine("You guessed the wrong number Try Again");
-                    AskPlayerForANumber(ref userInput, ref gameCounter);
-                    DetermineGameMessgae(ref userInput, ref gameCounter);
+                    gameCounter = 2;
                 }
-                break;
-            }
+                
+            else if (Convert.ToInt32(userInput) == 0)
+                {
+                     Console.WriteLine("Here are some user instructions");
+                     checkWinner = false;
+                }
 
-         
-         
-                    
+                else
+                {
+                    checkWinner = false;
+                }
+
+                     
         }
         
     }
