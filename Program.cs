@@ -8,14 +8,11 @@ namespace guessinggame
         {
             // When the user guesses 7, the game announces they have won. All other numbers lose.
 
-            string userGuess = "";
+            string userGuess = " ";
 
-            System.Console.Write("Please guess a neber between 1 & 10:");
-            userGuess = Console.ReadLine();
-            int userGuessNumber = Convert.ToInt32(userGuess);
-
-            Console.WriteLine((userGuessNumber == 7) ? "You Guessed Correctly" : "You guessed Incorrectly");
-
+            AskPlayerForANumber(ref userGuess);
+            RepsondToPlayer(ref userGuess);
+            
 
 
             // When the user guesses 0, the game provides instructions for the user.
@@ -27,10 +24,19 @@ namespace guessinggame
             // Stretch task: Give the user 3 tries before announcing they have lost.
 
 
-
-            Console.WriteLine("Hello World!");
-
             Console.ReadKey();
+        }
+
+        static void AskPlayerForANumber(ref string userInput)
+        {
+            System.Console.Write("Please guess a neber between 1 & 10:");
+            userInput = Console.ReadLine();
+        }
+
+        static void RepsondToPlayer(ref string userInput)
+        {
+            int userGuessNumber = Convert.ToInt32(userInput);
+            Console.WriteLine((userGuessNumber == 7) ? "You Guessed Correctly" : "You guessed Incorrectly");
         }
     }
 }
