@@ -6,47 +6,29 @@ namespace guessinggame
     {
         static void Main(string[] args)
         {
-            // When the user guesses 7, the game announces they have won. All other numbers lose.
-            // When the user guesses 0, the game provides instructions for the user.
-            // After guessing, the user can take one more guess (unless they won!)
-            // When the user guesses -1, the application should exit.
-            // The game should provide feedback that the secret number is > or < any incorrect guesses.
-            // The number should be random, instead of always 7.
-
+            Console.WriteLine("//When the user guesses 7, the game announces they have won. All other numbers lose. \n// When the user guesses 0, the game provides instructions for the user. \n/ After guessing, the user can take one more guess (unless they won!) \n// When the user guesses -1, the application should exit. \n// The game should provide feedback that the secret number is > or < any incorrect guesses. \n// The number should be random, instead of always 7. \n// Stretch task: Give the user 3 tries before announcing they have lost.\n\n\n");
+            
             string userGuess = " ";
             int gameCounter = 0;
+            int gameNumber = 0;
             bool isWinner = false;
 
-            Random rnd = new Random();
-            int[] gameNumbers = {1,2,3,4,5,6,7,8,9,10};
-            int gameNumber = rnd.Next(gameNumbers.Length);
+            GetRandomNumberForGame(ref gameNumber);
 
-            AskPlayerForANumber(ref userGuess, ref gameCounter);
+            while(PlayerHasNotReached3Tries(gameCounter) && PlayerHasGuessedWrongNumber(isWinner))
+            {
+               
+                AskPlayerForANumber(ref userGuess, ref gameCounter);
+                DetermineGameMessgae(ref userGuess, ref gameCounter, ref isWinner, gameNumber);
+                IsNumberHigherOrLower(ref userGuess, gameNumber);
 
-            DetermineGameMessgae(ref userGuess, ref gameCounter, ref isWinner, gameNumber);
+            }
 
             if(isWinner)
                 Console.WriteLine( "You are a Winner!");
-            
-            else if(!isWinner && gameCounter < 2)
-                   {
-                        IsNumberHigherOrLower(ref userGuess);
-                        AskPlayerForANumber(ref userGuess, ref gameCounter);
-                        DetermineGameMessgae(ref userGuess, ref gameCounter, ref isWinner, gameNumber);
-                        
-                        if(isWinner)
-                                Console.WriteLine( "You are a Winner!");
-                        else
-                                Console.WriteLine("You Lost!");
-                    }
             else
                 Console.WriteLine("You Lost!");
             
-
-           
-
-            // Stretch task: Give the user 3 tries before announcing they have lost.
-
 
             Console.ReadKey();
         }
@@ -60,7 +42,6 @@ namespace guessinggame
 
         static void DetermineGameMessgae(ref string userInput, ref int gameCounter, ref bool checkWinner,  int gameNumber)
         {
-
             if (Convert.ToInt32(userInput) == gameNumber)
                 {
                     checkWinner = true;
@@ -81,14 +62,36 @@ namespace guessinggame
                 {
                     checkWinner = false;
                 }
-
-                     
         }
 
-        static void IsNumberHigherOrLower(ref string userInput)
+        static void IsNumberHigherOrLower(ref string userInput, int gameNumber)
         {
-            Console.WriteLine((Convert.ToInt32(userInput) > 7) ? "Guess a Lower Number!" : "Guess a Higher Number!");
+            Console.WriteLine((Convert.ToInt32(userInput) > gameNumber) ? "Guess a Lower Number!" : "Guess a Higher Number!");
+        }
+
+        static void GetRandomNumberForGame(ref int gameNumber)
+        {
+            Random rnd = new Random();
+            int[] gameNumbers = {1,2,3,4,5,6,7,8,9,10};
+            gameNumber = rnd.Next(gameNumbers.Length);
         }
         
+        static bool PlayerHasNotReached3Tries(int gameCounter)
+        {
+            if(gameCounter < 3)
+            return true;
+            else
+            return false;
+        }
+
+        static bool PlayerHasGuessedWrongNumber(bool isWinner)
+        {
+            if(isWinner)
+            return false;
+            else
+            return true;
+        }
+
+
     }
 }
