@@ -21,11 +21,14 @@ namespace guessinggame
             DetermineGameMessgae(ref userGuess, ref gameCounter, ref isWinner);
             
             if(isWinner)
-            Console.WriteLine( "You are a Winner!");
-            else if (!isWinner && gameCounter <2)
+                Console.WriteLine( "You are a Winner!");
+            
+            else if(!isWinner && gameCounter < 2)
                    {
+                        IsNumberHigherOrLower(ref userGuess);
                         AskPlayerForANumber(ref userGuess, ref gameCounter);
                         DetermineGameMessgae(ref userGuess, ref gameCounter, ref isWinner);
+                        
                         if(isWinner)
                                 Console.WriteLine( "You are a Winner!");
                         else
@@ -80,6 +83,11 @@ namespace guessinggame
                 }
 
                      
+        }
+
+        static void IsNumberHigherOrLower(ref string userInput)
+        {
+            Console.WriteLine((Convert.ToInt32(userInput) > 7) ? "Guess a Lower Number!" : "Guess a Higher Number!");
         }
         
     }
