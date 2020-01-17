@@ -19,7 +19,7 @@ namespace guessinggame
             {
                
                 AskPlayerForANumber(ref userGuess, ref gameCounter);
-                DetermineGameMessgae(ref userGuess, ref gameCounter, ref isWinner, gameNumber);
+                DetermineGameMessage(ref userGuess, ref gameCounter, ref isWinner, gameNumber);
                 IsNumberHigherOrLower(ref userGuess, gameNumber);
 
             }
@@ -40,7 +40,7 @@ namespace guessinggame
             ++gameCounter;
         }
 
-        static void DetermineGameMessgae(ref string userInput, ref int gameCounter, ref bool checkWinner,  int gameNumber)
+        static void DetermineGameMessage(ref string userInput, ref int gameCounter, ref bool checkWinner,  int gameNumber)
         {
             if (Convert.ToInt32(userInput) == gameNumber)
                 {
