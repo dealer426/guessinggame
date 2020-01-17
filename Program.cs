@@ -9,6 +9,7 @@ namespace guessinggame
             // When the user guesses 7, the game announces they have won. All other numbers lose.
             // When the user guesses 0, the game provides instructions for the user.
             // After guessing, the user can take one more guess (unless they won!)
+             // When the user guesses -1, the application should exit.
 
             string userGuess = " ";
             int gameCounter = 0;
@@ -21,7 +22,7 @@ namespace guessinggame
 
             
             
-            // When the user guesses -1, the application should exit.
+           
             // The game should provide feedback that the secret number is > or < any incorrect guesses.
             // The number should be random, instead of always 7.
 
@@ -40,27 +41,37 @@ namespace guessinggame
 
         static void DetermineGameMessgae(ref string userInput, ref int gameCounter)
         {
-            if(Convert.ToInt32(userInput) == 7)
-                    Console.WriteLine("You are a winner!");
 
-            else if(Convert.ToInt32(userInput) == 0)
-                 Console.WriteLine("Here are some user instructions Try Again");
+              switch (userInput)
+            {
+                case "7":
+                Console.WriteLine("You are a winner!");
+                break;
 
-                 if(gameCounter < 2)
-                 {
+                case "0":
+                if(gameCounter < 2)
+                {
+                    Console.WriteLine("Here are some user instructions, Try Again");
                     AskPlayerForANumber(ref userInput, ref gameCounter);
                     DetermineGameMessgae(ref userInput, ref gameCounter);
-                 }
-                   
-            else
+                }
+                break;
+
+                case "-1":
+                Console.WriteLine("Game Over!");
+                break;
+
+                default:
                 if(gameCounter < 2)
-                    {
-                        Console.WriteLine("You guessed the wrong number Try Again");
-                        AskPlayerForANumber(ref userInput, ref gameCounter);
-                        DetermineGameMessgae(ref userInput, ref gameCounter);
-                    }
-                    else
-                    Console.WriteLine("Game Over");
+                {
+                    Console.WriteLine("You guessed the wrong number Try Again");
+                    AskPlayerForANumber(ref userInput, ref gameCounter);
+                    DetermineGameMessgae(ref userInput, ref gameCounter);
+                }
+                break;
+            }
+
+         
          
                     
         }
